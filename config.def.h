@@ -14,7 +14,10 @@ static const unsigned int gappov    = 30;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=12", "fontawesome:size=12" };
+static const char *fonts[]          = { "monospace:size=12",
+										"fontawesome:size=12",
+										"Font Awesome 5 Free Solid:fontformat=truetype:size=12:antialias=true",
+										"Font Awesome 5 Brands Regular:fontformat=truetype:size=12:antialias=true"};
 static const char dmenufont[]       = "monospace:size=11";
 //background color
 static const char col_gray1[]       = "#222222";

@@ -1,3 +1,4 @@
 #!/bin/bash
 picom -f &
-~/.fehbg
+~/.fehbg &
+dwmblocks
