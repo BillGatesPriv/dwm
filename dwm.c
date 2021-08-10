@@ -40,13 +40,15 @@
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
+#include <sys/mman.h>
+#include <fcntl.h>
 
 #include "drw.h"
 #include "util.h"
 
 /* macros */
 #define SHM_SIZE		1500 	/* this must be equal to SHM_SIZE in dwmblock */
-
+#define SHM_NAME                "/dwmstatus"
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
@@ -137,6 +139,7 @@ struct Monitor {
 	unsigned int sellt;
 	unsigned int tagset[2];
 	int showbar;
+	int showstatus;
 	int topbar;
 	Client *clients;
 	Client *sel;
@@ -229,6 +232,7 @@ static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void togglebar(const Arg *arg);
+static void togglestatus(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -253,8 +257,11 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xinitvisual();
 static void zoom(const Arg *arg);
+static void dwmblocks_send(int sigtype);
 
 /* variables */
+static char *sharedmemory;
+static int sharedmemoryfd;
 static const char broken[] = "broken";
 static char stext[SHM_SIZE];
 static int screen;
@@ -662,6 +669,7 @@ createmon(void)
 	m->mfact = mfact;
 	m->nmaster = nmaster;
 	m->showbar = showbar;
+	m->showstatus = 1;
 	m->topbar = topbar;
 	m->gappih = gappih;
 	m->gappiv = gappiv;
@@ -2034,9 +2042,20 @@ void
 togglebar(const Arg *arg)
 {
 	selmon->showbar = !selmon->showbar;
+	sharedmemory[4] = selmon->showbar;
+	if (selmon->showbar)
+		dwmblocks_send(SIGHUP);
 	updatebarpos(selmon);
 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
 	arrange(selmon);
+}
+
+void
+togglestatus(const Arg *arg)
+{
+    selmon->showstatus = !selmon->showstatus;
+    sharedmemory[5] = selmon->showstatus;
+    dwmblocks_send(SIGHUP);
 }
 
 void
@@ -2323,8 +2342,22 @@ updatesizehints(Client *c)
 void
 updatestatus(const Arg *arg)
 {
-	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
-		strcpy(stext, "dwm-"VERSION);
+	if (selmon->showbar) {
+		int i;
+		char *sm = sharedmemory;
+		for (i = 6; i < SHM_SIZE && sm[i] != '\0' && sm[i] != '\n'; i++);
+		if (i == SHM_SIZE) {
+			fprintf(stderr, "dwm: status message exceeds block size %u, truncating", SHM_SIZE);
+			i--;
+		}
+		sm[i] = '\0';
+		strcpy(stext, sm + 6);
+	} else {
+		strcpy(stext, "^f5^^c#FFFFFF^dwmblocks is offline^f5^");
+	}
+
+	/* if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext))) */
+	/* 	strcpy(stext, "dwm-"VERSION); */
 	drawbar(selmon);
 }
 
@@ -2509,6 +2542,29 @@ main(int argc, char *argv[])
 	if (!(dpy = XOpenDisplay(NULL)))
 		die("dwm: cannot open display");
 	checkotherwm();
+
+	/* initialize shared memory with default message */
+	sharedmemoryfd = shm_open(SHM_NAME, O_CREAT|O_RDWR, S_IRWXU|S_IRWXG);
+	if (sharedmemoryfd < 0) {
+		perror("dwm: failed to open shared memory");
+		return EXIT_FAILURE;
+	}
+	ftruncate(sharedmemoryfd, SHM_SIZE);
+	sharedmemory = (char*)mmap(NULL, SHM_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, sharedmemoryfd, 0);
+	if (sharedmemory == NULL) {
+		fprintf(stderr, "dwm: failed to run mmap");
+		return EXIT_FAILURE;
+	}
+	/* the first 4 bytes will be overwritten by dwmblocks with its pid */
+	memset(sharedmemory, 0, 4);
+
+
+	/* the fifth and sixth bytes respectively denote bar and status visibility */
+	sharedmemory[4] = 1;
+	sharedmemory[5] = 1;
+
+	strcpy(sharedmemory + 6, "^f5^^c#FFFFFF^dwmblocks is offline^f5^");
+
 	setup();
 #ifdef __OpenBSD__
 	if (pledge("stdio rpath proc exec", NULL) == -1)
@@ -2520,4 +2576,18 @@ main(int argc, char *argv[])
 	cleanup();
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
+}
+
+static void dwmblocks_send(int sigtype)
+{
+    /* dwmblocks has an easy way to communicate with dwm via fsignals.
+     * However, dwm doesn't have a good method to do the reverse.
+     * That's why, by convention, dwmblocks uses the first 4 bytes
+     * of shared memory to store its PID, so that dwm can read it
+     * and send signals when needed.
+     */
+    pid_t pid;
+    memcpy(&pid, sharedmemory, 4);
+    if (pid)
+        kill(pid, sigtype);
 }
