@@ -15,7 +15,7 @@ static       int smartgaps          = 0;        /* 1 means no outer gap when the
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=12",
-										/* "fontawesome:size=12", */
+										"fontawesome:size=12",
 										"Font Awesome 5 Free Solid:fontformat=truetype:size=12:antialias=true",
 										"Font Awesome 5 Brands Regular:fontformat=truetype:size=12:antialias=true"
 										};
@@ -147,6 +147,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("~/.config/xxs-lock/suspend-screen.sh") },
 
 	/* { MODKEY,                       XK_s,      togglesticky,   {0} }, */
 	/* Applications */
@@ -161,8 +162,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e ranger") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD(TERMINAL " -e htop") },
 	{ 0,              XF86XK_AudioMute,        spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
-	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
+	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("sb-volumeup; kill -44 $(pidof dwmblocks)") },
+	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD("sb-volumedown; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-on") },
 	{ 0,              XF86XK_AudioPrev,  	   spawn,          SHCMD("redshift-off") },
 	{ 0,              XF86XK_ScrollUp,			   spawn,          SHCMD(TERMINAL " -e ranger") }, //Todo: Find key
