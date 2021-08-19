@@ -1,6 +1,5 @@
 #!/bin/bash
-picom -f &
 ~/.fehbg &
 # dwmbcpul &
-dwmbmpd &
+# dwmbmpd &
 dwmblocks &
