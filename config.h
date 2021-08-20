@@ -166,9 +166,10 @@ static Key keys[] = {
 	{ 0,              XF86XK_AudioMute,        spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("sb-volumeup; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD("sb-volumedown; kill -44 $(pidof dwmblocks)") },
-	{ 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-on") },
-	{ 0,              XF86XK_AudioPrev,  	   spawn,          SHCMD("redshift-off") },
-	{ 0,              XF86XK_ScrollUp,			   spawn,          SHCMD(TERMINAL " -e ranger") }, //Todo: Find key
+	/* { 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-adjust") }, */
+	{ 0,                            XK_F10,   spawn,          SHCMD("redshift-adjust +50") },
+	{ 0,                            XK_F11,   spawn,          SHCMD("redshift-adjust -50") },
+	{ 0,              XF86XK_ScrollUp,         spawn,          SHCMD(TERMINAL " -e ranger") }, //Todo: Find key
 	/* Application Managment */
 	{ MODKEY,                       XK_backslash,    view,     {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },

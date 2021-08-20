@@ -75,6 +75,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#include "shiftview.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -148,7 +149,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("~/.config/xxs-lock/suspend-screen.sh") },
-
+	{ MODKEY,                       XK_n,      shiftview,  { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_n,      shiftview,  { .i = -1 } },
 	/* { MODKEY,                       XK_s,      togglesticky,   {0} }, */
 	/* Applications */
 	{ MODKEY,                       XK_p,      spawn,          {.v = roficmd } },
@@ -164,9 +166,10 @@ static Key keys[] = {
 	{ 0,              XF86XK_AudioMute,        spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("sb-volumeup; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD("sb-volumedown; kill -44 $(pidof dwmblocks)") },
-	{ 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-on") },
-	{ 0,              XF86XK_AudioPrev,  	   spawn,          SHCMD("redshift-off") },
-	{ 0,              XF86XK_ScrollUp,			   spawn,          SHCMD(TERMINAL " -e ranger") }, //Todo: Find key
+	/* { 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-adjust") }, */
+	{ 0,                            XK_F10,   spawn,          SHCMD("redshift-adjust +50") },
+	{ 0,                            XK_F11,   spawn,          SHCMD("redshift-adjust -50") },
+	{ 0,              XF86XK_ScrollUp,         spawn,          SHCMD(TERMINAL " -e ranger") }, //Todo: Find key
 	/* Application Managment */
 	{ MODKEY,                       XK_backslash,    view,     {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
