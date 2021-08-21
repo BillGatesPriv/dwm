@@ -1,22 +1,21 @@
-
- dwm - suckless window manager
+dwm - suckless window manager
 
 My build of dwm, the minimalist, fast and flexible window manager with focus on productivity.
 
-The majority of added code comes from applying various patches from the [suckless website](https://dwm.suckless.org),
-or [Randoragon](https://github.com/Randoragon)'s build of dwm, dwmblocks and his dotfiles.
+Most of the code originates from various patches from the [suckless website](https://dwm.suckless.org)  
+and additionaly from [Randoragon](https://github.com/Randoragon)'s build of dwm.
 
 ## Main features
 
 - Running custom scripts at startup
 - New layouts
 - Move and resize floating windows with keyboard shortcuts
-- Bind functions to key press or release events
 - Inner and outer gaps resizeable during runtime (compatible with all layouts)
 - Execute arbitrary commands by sending signals
 - dwmblocks integration - read the [Status Bar Rewrite section](https://github.com/coalbl4ck/dwm#status-bar-rewrite)
 - color fonts support (will crash if you don't have [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra) installed!)
 - replaced dmenu binding with rofi
+
 
 ## Bar features
 
@@ -25,18 +24,10 @@ or [Randoragon](https://github.com/Randoragon)'s build of dwm, dwmblocks and his
 - custom foreground and background colors
 - customizable bar text horizontal padding
 - custom bar height
-- dwmblocks won't consume CPU power when bar is toggled off
 - toggle dwmblocks without toggling the entire bar
-
-I currently don't have plans of adding clickable bar modules, because the
-[status2d](https://dwm.suckless.org/patches/status2d/) patch is not easily comptible with the
-[statuscmd](https://dwm.suckless.org/patches/statuscmd/) patch and making them both work would
-require a lot of effort for a feature that I can comfortably do without.
+- dwmblocks won't consume CPU power when bar is toggled off (Currently not implemented for CPU utilization option)
 
 ## Applied Patches
-
-Often times the patches were tinkered with after having been applied,
-so a lot of the code is slightly different from its original source.
 
 - [alpha](https://dwm.suckless.org/patches/alpha/)
 - [autostart](https://dwm.suckless.org/patches/autostart/)
@@ -48,6 +39,11 @@ so a lot of the code is slightly different from its original source.
 - [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
 
 ## Status Bar Rewrite
+
+-- Disclaimer -- 
+
+Credit goes entirely to [Randoragon](https://github.com/Randoragon) for this feature, which i copied in part to use in my build of dwm and dwmblocks  
+
 
 Apparently [XStoreName cannot handle all character encodings well](https://linux.die.net/man/3/xstorename) (see second last paragraph in Description), which
 actually caused me many instant crashes that were pretty hard to trace when I was trying to get the bar to display
@@ -63,9 +59,6 @@ shared memory to its PID. Additionally, the 5th byte denotes bar visibility, and
 The purpose is for dwmblocks to only run scripts when necessary, so whenever the 5th byte is 0, it will skip
 calling the scripts entirely, and when the 6th byte is 0, it will only call "persistent" scripts.
 Note that this only applies to interval-based scripts, signals will be handled as always.
-
-Maybe someday [Randoragon](https://github.com/Randoragon) will make this into a patch, because it works rather well, is fully asynchronous and very stable
-(you can turn dwmblocks on and off repeatedly without the bar breaking).
 
 ## Installation
 
@@ -87,3 +80,5 @@ necessary as root):
 	- [Randoragon](https://github.com/Randoragon)  
 - some snippets of code (mostly vanitygaps for some layouts) are reimplemented copies originating from Luke Smith's dwm repo
     - [github.com/lukesmithxyz/dwm](https://github.com/lukesmithxyz/dwm)
+
+
