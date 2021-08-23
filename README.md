@@ -7,7 +7,7 @@ and additionaly from [Randoragon](https://github.com/Randoragon)'s build of dwm.
 
 ## Main features
 
-- Running custom scripts at startup
+- Running custom scripts at startup !!Autostart patch requires autostart.sh in ~/.dwm/autostart.sh
 - New layouts
 - Move and resize floating windows with keyboard shortcuts
 - Inner and outer gaps resizeable during runtime (compatible with all layouts)
