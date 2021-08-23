@@ -165,6 +165,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD(TERMINAL " -e htop") },
 	{ 0,              XF86XK_AudioMute,        spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("sb-volumeup; kill -44 $(pidof dwmblocks)") },
+	{ 0,              XF86XK_MonBrightnessDown,   spawn,          SHCMD("sb-xbacklightdown") },
+	{ 0,              XF86XK_MonBrightnessUp,     spawn,          SHCMD("sb-xbacklightup") },
 	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD("sb-volumedown; kill -44 $(pidof dwmblocks)") },
 	/* { 0,              XF86XK_AudioNext,  	   spawn,          SHCMD("redshift-adjust") }, */
 	{ 0,                            XK_F10,   spawn,          SHCMD("redshift-adjust +50") },
