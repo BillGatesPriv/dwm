@@ -67,7 +67,6 @@ necessary as root):
 ## Requirements
 
 * [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra)
-* [redshift](https://archlinux.org/packages/?name=redshift)
 * [fontawesome](https://archlinux.org/packages/community/any/ttf-font-awesome)
 
 ## References
