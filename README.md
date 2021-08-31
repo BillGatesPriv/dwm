@@ -1,50 +1,42 @@
 dwm - suckless window manager
 
-My build of dwm, the minimalist, fast and flexible window manager with focus on productivity.
+My build of [dwm](dwm.suckless.org/) the extremely fast, small and dynamic window manager for X with focus on productivity.  
 
-Most of the code originates from various patches from the [suckless website](https://dwm.suckless.org)  
-and additionaly from [Randoragon](https://github.com/Randoragon)'s build of dwm.
+Patches originate from the  
 
-## Main features
+* [suckless website](https://dwm.suckless.org)  
+* [Randoragon's build of dwm](https://github.com/Randoragon)
 
-- Running custom scripts at startup !!Autostart patch requires autostart.sh in ~/.dwm/autostart.sh
-- New layouts
-- Move and resize floating windows with keyboard shortcuts
-- Inner and outer gaps resizeable during runtime (compatible with all layouts)
-- Execute arbitrary commands by sending signals
-- dwmblocks integration - read the [Status Bar Rewrite section](https://github.com/coalbl4ck/dwm#status-bar-rewrite)
-- color fonts support (will crash if you don't have [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra) installed!)
-- replaced dmenu binding with rofi
+## Features
 
+* Running custom scripts at startup (reference to autostart.sh required)
+* New layouts
+* Move and resize floating windows with keyboard shortcuts
+* Inner and outer gaps resizeable during runtime (compatible with all layouts)
+* Execute arbitrary commands by sending signals
+* dwmblocks integration - best see the [Status Bar Rewrite section](https://github.com/coalbl4ck/dwm#status-bar-rewrite)
+* color fonts support (will crash if you don't have [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra) installed!)
+* replaced dmenu binding with rofi
 
-## Bar features
+## Patches
 
-- draw rectangles and customize colors
-- transparency
-- custom foreground and background colors
-- customizable bar text horizontal padding
-- custom bar height
-- toggle dwmblocks without toggling the entire bar
-- dwmblocks won't consume CPU power when bar is toggled off (Currently not implemented for CPU utilization option)
-
-## Applied Patches
-
-- [alpha](https://dwm.suckless.org/patches/alpha/)
-- [autostart](https://dwm.suckless.org/patches/autostart/)
-- [fancybar](https://dwm.suckless.org/patches/fancybar/)
-- [fsignal](https://dwm.suckless.org/patches/fsignal/)
-- [moveresize](https://dwm.suckless.org/patches/moveresize/)
-- [selfrestart](https://dwm.suckless.org/patches/selfrestart/)
-- [status2d](https://dwm.suckless.org/patches/status2d/)
-- [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
+* [alpha](https://dwm.suckless.org/patches/alpha/)
+* [autostart](https://dwm.suckless.org/patches/autostart/)
+* [fancybar](https://dwm.suckless.org/patches/fancybar/)
+* [fsignal](https://dwm.suckless.org/patches/fsignal/)
+* [moveresize](https://dwm.suckless.org/patches/moveresize/)
+* [selfrestart](https://dwm.suckless.org/patches/selfrestart/)
+* [status2d](https://dwm.suckless.org/patches/status2d/)
+* [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
 
 ## Status Bar Rewrite
 
--- Disclaimer -- 
+-- Disclaimer --  
 
-Credit goes entirely to [Randoragon](https://github.com/Randoragon) for this feature, which i copied in part to use in my build of dwm and dwmblocks  
-
-
+*Upon searching for dwmblock scripts i stumpled upon [Randoragon](https://github.com/Randoragon)'s build of dwm and dwmblocks.*  
+*In part i copied his "Status Bar Rewrite" for dwm and dwmblocks which is explained here.*  
+  
+  
 Apparently [XStoreName cannot handle all character encodings well](https://linux.die.net/man/3/xstorename) (see second last paragraph in Description), which
 actually caused me many instant crashes that were pretty hard to trace when I was trying to get the bar to display
 icons from FontAwesome or Unicode characters. Since that's an inherent weakness of the WM\_NAME property, I thought
@@ -74,11 +66,8 @@ necessary as root):
 
 ## References
 
-- dwm is actively developed by the suckless community
-    - [suckless.org](https://suckless.org)  
-- scripts and shared memory  
-	- [Randoragon](https://github.com/Randoragon)  
-- some snippets of code (mostly vanitygaps for some layouts) are reimplemented copies originating from Luke Smith's dwm repo
-    - [github.com/lukesmithxyz/dwm](https://github.com/lukesmithxyz/dwm)
-
+* dwm is actively developed by the suckless community
+  * [suckless.org](https://suckless.org)  
+* scripts and shared memory  
+  * [Randoragon](https://github.com/Randoragon)  
 
