@@ -64,6 +64,12 @@ necessary as root):
 
     make clean install
 
+## Requirements
+
+* [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra)
+* [redshift](https://archlinux.org/packages/?name=redshift)
+* [fontawesome](https://archlinux.org/packages/community/any/ttf-font-awesome)
+
 ## References
 
 * dwm is actively developed by the suckless community
