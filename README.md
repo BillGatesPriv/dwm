@@ -68,6 +68,7 @@ necessary as root):
 
 * [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra)
 * [fontawesome](https://archlinux.org/packages/community/any/ttf-font-awesome)
+* [pavucontrol]
 
 ## References
 
