@@ -1,7 +1,5 @@
 dwm - suckless window manager
 
-My build of [dwm](dwm.suckless.org/) the extremely fast, small and dynamic window manager for X with focus on productivity.  
-
 Patches originate from the  
 
 * [suckless website](https://dwm.suckless.org)  
@@ -9,14 +7,13 @@ Patches originate from the
 
 ## Features
 
-* Running custom scripts at startup (reference to autostart.sh required)
-* New layouts
+* Running custom scripts at startup (reference to *autostart.sh* required)
+* Added layouts
 * Move and resize floating windows with keyboard shortcuts
 * Inner and outer gaps resizeable during runtime (compatible with all layouts)
 * Execute arbitrary commands by sending signals
 * dwmblocks integration - best see the [Status Bar Rewrite section](https://github.com/coalbl4ck/dwm#status-bar-rewrite)
 * color fonts support (will crash if you don't have [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra) installed!)
-* replaced dmenu binding with rofi
 
 ## Patches
 
@@ -36,15 +33,14 @@ Patches originate from the
 *Upon searching for dwmblock scripts i stumpled upon [Randoragon](https://github.com/Randoragon)'s build of dwm and dwmblocks.*  
 *In part i copied his "Status Bar Rewrite" for dwm and dwmblocks which is explained here.*  
   
-  
 Apparently [XStoreName cannot handle all character encodings well](https://linux.die.net/man/3/xstorename) (see second last paragraph in Description), which
 actually caused me many instant crashes that were pretty hard to trace when I was trying to get the bar to display
 icons from FontAwesome or Unicode characters. Since that's an inherent weakness of the WM\_NAME property, I thought
-of an alternative solution:
+of an alternative solution:  
 
 Both dwm and dwmblocks initialize a block of shared memory. dwmblocks writes status strings to the shared memory,
 then uses [fsignal](https://dwm.suckless.org/patches/fsignal/) to send SIGUSR1 to dwm. dwm updates the status
-text from shared memory every time it receives the SIGUSR1 fake signal.
+text from shared memory every time it receives the SIGUSR1 fake signal.  
 
 To allow dwm to send signals directly to dwmblocks, by convention dwmblocks will set the first 4 bytes of
 shared memory to its PID. Additionally, the 5th byte denotes bar visibility, and the 6th status text visibility.
@@ -68,7 +64,6 @@ necessary as root):
 
 * [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra)
 * [fontawesome](https://archlinux.org/packages/community/any/ttf-font-awesome)
-* [pavucontrol]
 
 ## References
 
