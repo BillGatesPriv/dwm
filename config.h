@@ -148,7 +148,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_Down,   moveresizeedge, {.v = "B"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Left,   moveresizeedge, {.v = "L"} },
 	{ MODKEY|ControlMask|ShiftMask, XK_Right,  moveresizeedge, {.v = "R"} },
-	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("~/.config/xxs-lock/suspend-screen.sh") },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("xxs-suspend-screen") },
 	{ MODKEY,                       XK_n,      shiftview,  { .i = +1 } },
 	{ MODKEY|ShiftMask,             XK_n,      shiftview,  { .i = -1 } },
 	/* { MODKEY,                       XK_s,      togglesticky,   {0} }, */
