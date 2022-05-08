@@ -161,7 +161,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          SHCMD("discord") },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("spotify") },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("keepassxc") },
-	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e ranger") },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD(TERMINAL " -e lf") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD(TERMINAL " -e htop") },
 	{ 0,              XF86XK_AudioMute,        spawn,          SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD("sb-volumeup; kill -44 $(pidof dwmblocks)") },
